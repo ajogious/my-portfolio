@@ -140,6 +140,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetTitle className="mt-2">
+                <span>👩‍💻</span>
                 {personalInfo.name.split(" ")[0]}
                 <span>👩‍💻</span>
               </SheetTitle>
