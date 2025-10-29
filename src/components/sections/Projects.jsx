@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import OptimizedImage from "@/components/ui/OptimizedImage";
+
 import { FadeUp } from "@/components/animations/FadeUp";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { Card, CardContent } from "@/components/ui/card";
@@ -111,7 +113,7 @@ export default function Projects() {
                 <CardContent className="p-0 h-full flex flex-col">
                   {/* Project Image */}
                   <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/10 relative overflow-hidden">
-                    <div className="w-full h-full flex items-center justify-center">
+                    {/* <div className="w-full h-full flex items-center justify-center">
                       <motion.span
                         className="text-5xl"
                         whileHover={{ scale: 1.1 }}
@@ -119,8 +121,17 @@ export default function Projects() {
                       >
                         {projectIcons[project.title] || "🚀"}
                       </motion.span>
+                    </div> */}
+                    {/* Project Image */}
+                    <div className="aspect-video bg-muted relative overflow-hidden">
+                      <OptimizedImage
+                        src={`/images/project-${project.id}.jpg`}
+                        alt={project.title}
+                        containerClassName="w-full h-full"
+                        className="w-full h-full object-cover"
+                        priority={project.featured} // Load featured images first
+                      />
                     </div>
-
                     {/* Featured Badge */}
                     {project.featured && (
                       <div className="absolute top-3 left-3">
@@ -133,7 +144,6 @@ export default function Projects() {
                         </Badge>
                       </div>
                     )}
-
                     {/* Hover Overlay */}
                     <motion.div
                       className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3"
