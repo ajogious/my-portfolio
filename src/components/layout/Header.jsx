@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
@@ -8,14 +8,23 @@ import {
   SheetContent,
   SheetTrigger,
   SheetTitle,
-  SheetDescription,
 } from "@/components/ui/sheet";
 import { Moon, Sun, Monitor, Menu } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const { theme, setTheme } = useTheme();
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigation = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
@@ -24,89 +33,129 @@ export default function Header() {
     { name: "Contact", href: "#contact" },
   ];
 
-  // Cycle through themes (light → dark → system → light)
   const cycleTheme = () => {
     if (theme === "light") setTheme("dark");
     else if (theme === "dark") setTheme("system");
     else setTheme("light");
   };
 
-  // Pick icon based on current theme
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY + 120;
+      for (const item of navigation) {
+        const id = item.href.slice(1);
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const { offsetTop, offsetHeight } = el;
+        if (scrollY >= offsetTop && scrollY < offsetTop + offsetHeight) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navigation]);
+
   const ThemeIcon = theme === "light" ? Sun : theme === "dark" ? Moon : Monitor;
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+    <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b">
+      {/* ✅ Scroll Progress Bar */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left"
+        style={{ scaleX }}
+      />
+
+      {/* ✅ Navigation */}
       <nav className="container flex h-16 items-center justify-between">
-        {/* Brand */}
-        <div className="font-bold text-xl">YourName</div>
+        <Link
+          href="#home"
+          className="font-bold text-xl hover:text-primary transition-colors"
+        >
+          YourName
+        </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const id = item.href.slice(1);
+            const isActive = activeSection === id;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`relative text-sm font-medium transition-all duration-300 ${
+                  isActive
+                    ? "text-primary font-semibold"
+                    : "text-foreground/80 hover:text-primary"
+                }`}
+              >
+                {item.name}
+                {isActive && (
+                  <span className="absolute bottom-[-4px] left-0 right-0 h-0.5 bg-primary rounded-full" />
+                )}
+              </Link>
+            );
+          })}
 
-          {/* Theme Toggle (Desktop) */}
+          {/* Desktop Theme Toggle */}
           <div className="flex items-center gap-1 border rounded-lg p-1">
-            <Button
-              variant={theme === "light" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTheme("light")}
-            >
-              <Sun className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={theme === "dark" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTheme("dark")}
-            >
-              <Moon className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={theme === "system" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTheme("system")}
-            >
-              <Monitor className="h-4 w-4" />
-            </Button>
+            {["light", "dark", "system"].map((mode) => {
+              const Icon = {
+                light: Sun,
+                dark: Moon,
+                system: Monitor,
+              }[mode];
+
+              return (
+                <Button
+                  key={mode}
+                  variant={theme === mode ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setTheme(mode)}
+                  className="h-8 w-8 p-0"
+                >
+                  <Icon className="h-4 w-4" />
+                </Button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Nav */}
         <div className="flex items-center gap-2 md:hidden">
-          {/* Mobile Theme Toggle */}
+          {/* Mobile Cycle Theme */}
           <Button variant="ghost" size="icon" onClick={cycleTheme}>
             <ThemeIcon className="h-5 w-5" />
           </Button>
 
-          {/* Hamburger Menu */}
+          {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-
             <SheetContent side="right">
-              {/* ✅ Added for accessibility */}
-              <SheetTitle>A.A.Ajoge</SheetTitle>
+              <SheetTitle className="mt-2">Navigation</SheetTitle>
               <div className="flex flex-col gap-4 mt-6">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-lg font-medium py-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {navigation.map((item) => {
+                  const id = item.href.slice(1);
+                  const isActive = activeSection === id;
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={`text-lg font-medium ${
+                        isActive ? "text-primary" : "text-foreground"
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                })}
               </div>
             </SheetContent>
           </Sheet>

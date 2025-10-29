@@ -15,7 +15,16 @@ export default function SmoothScroll({ children }) {
         event.preventDefault();
         const element = document.querySelector(href);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          // Calculate the offset for the fixed header
+          const headerHeight = 64; // h-16 = 4rem = 64px
+          const elementPosition =
+            element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
         }
       }
     };

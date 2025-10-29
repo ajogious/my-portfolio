@@ -6,7 +6,7 @@ import SmoothScroll from "@/components/layout/SmoothScroll";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Adavize - Portfolio",
+  title: "Your Name - Portfolio",
   description: "Personal portfolio showcasing projects and experience",
 };
 
