@@ -14,7 +14,6 @@ import {
   Github,
   Linkedin,
   Twitter,
-  MessageCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { personalInfo } from "@/constants/data";
