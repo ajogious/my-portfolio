@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { Moon, Sun, Monitor, Menu } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { personalInfo } from "@/constants/data";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +74,7 @@ export default function Header() {
           href="#home"
           className="font-bold text-xl hover:text-primary transition-colors"
         >
-          YourName
+          {personalInfo.name.split(" ")[0]}
         </Link>
 
         {/* Desktop Nav */}
@@ -138,7 +139,10 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <SheetTitle className="mt-2">Navigation</SheetTitle>
+              <SheetTitle className="mt-2">
+                {personalInfo.name.split(" ")[0]}
+                <span>👩‍💻</span>
+              </SheetTitle>
               <div className="flex flex-col gap-4 mt-6">
                 {navigation.map((item) => {
                   const id = item.href.slice(1);
@@ -147,8 +151,10 @@ export default function Header() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className={`text-lg font-medium ${
-                        isActive ? "text-primary" : "text-foreground"
+                      className={`text-lg font-medium py-3 px-4 rounded-lg transition-colors ${
+                        isActive
+                          ? "text-primary bg-primary/10"
+                          : "text-foreground hover:bg-muted"
                       }`}
                       onClick={() => setIsOpen(false)}
                     >

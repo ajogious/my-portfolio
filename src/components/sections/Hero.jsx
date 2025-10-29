@@ -2,8 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/animations/FadeUp";
 import { Typewriter } from "@/components/animations/Typewriter";
-import { Download, Github, Linkedin, ArrowDown } from "lucide-react";
+import { Download, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { personalInfo } from "@/constants/data";
 
 export default function Hero() {
   const scrollToAbout = () => {
@@ -32,21 +33,19 @@ export default function Hero() {
             </FadeUp>
 
             <Typewriter
-              text="Your Name"
+              text={personalInfo.name}
               className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
             />
 
             <FadeUp delay={0.2}>
               <h2 className="text-2xl md:text-4xl text-muted-foreground font-semibold">
-                Full Stack Developer
+                {personalInfo.title}
               </h2>
             </FadeUp>
 
             <FadeUp delay={0.4}>
               <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
-                I create amazing web experiences using modern technologies.
-                Passionate about clean code, user experience, and bringing ideas
-                to life.
+                {personalInfo.bio}
               </p>
             </FadeUp>
 
@@ -58,7 +57,7 @@ export default function Hero() {
                 </Button>
                 <Button variant="outline" size="lg" className="gap-2" asChild>
                   <a
-                    href="https://github.com"
+                    href={personalInfo.social.github}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -68,7 +67,7 @@ export default function Hero() {
                 </Button>
                 <Button variant="outline" size="lg" className="gap-2" asChild>
                   <a
-                    href="https://linkedin.com"
+                    href={personalInfo.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -94,8 +93,8 @@ export default function Hero() {
                   ease: "easeInOut",
                 }}
               >
-                <div className="w-72 h-72 bg-background rounded-full flex items-center justify-center shadow-2xl">
-                  <motion.span
+                <div className="w-72 h-72 bg-background rounded-full flex items-center justify-center shadow-2xl border">
+                  <motion.div
                     className="text-4xl"
                     animate={{
                       scale: [1, 1.1, 1],
@@ -106,8 +105,8 @@ export default function Hero() {
                       ease: "easeInOut",
                     }}
                   >
-                    👨‍💻
-                  </motion.span>
+                    💻
+                  </motion.div>
                 </div>
               </motion.div>
 
@@ -137,19 +136,6 @@ export default function Hero() {
                   delay: 1,
                 }}
               />
-              <motion.div
-                className="absolute top-8 -left-8 w-4 h-4 bg-primary/70 rounded-full"
-                animate={{
-                  y: [0, -10, 0],
-                  x: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              />
             </div>
           </FadeUp>
         </div>
@@ -169,8 +155,20 @@ export default function Hero() {
             }}
           >
             <div className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <span className="text-sm font-medium">Scroll to explore</span>
-              <ArrowDown className="h-5 w-5" />
+              <span className="text-sm font-medium">Discover My Work</span>
+              <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
+                <motion.div
+                  animate={{
+                    y: [0, 12, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="w-1 h-3 bg-muted-foreground rounded-full mt-2"
+                />
+              </div>
             </div>
           </motion.div>
         </FadeUp>

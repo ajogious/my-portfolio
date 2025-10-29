@@ -2,34 +2,50 @@
 import { FadeUp } from "@/components/animations/FadeUp";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { Card, CardContent } from "@/components/ui/card";
-import { Code2, Palette, Database, Smartphone } from "lucide-react";
+import {
+  Code2,
+  Palette,
+  Database,
+  Smartphone,
+  Users,
+  Cloud,
+} from "lucide-react";
 import { motion } from "framer-motion";
+import { personalInfo, skills } from "@/constants/data";
 
 export default function About() {
-  const skills = [
+  const skillCategories = [
     {
       icon: Code2,
-      title: "Frontend",
-      description: "React, Next.js, TypeScript",
-      items: ["React", "Next.js", "JavaScript", "TypeScript", "HTML/CSS"],
+      title: "Frontend Development",
+      description: "Modern web technologies and frameworks",
+      items:
+        skills.technical.find((s) => s.category === "Frontend")?.items || [],
     },
     {
       icon: Database,
-      title: "Backend",
-      description: "Node.js, Python, Databases",
-      items: ["Node.js", "Python", "MongoDB", "PostgreSQL", "REST APIs"],
+      title: "Backend & Databases",
+      description: "Server-side development and data management",
+      items:
+        skills.technical
+          .find((s) => s.category === "Backend")
+          ?.items.concat(
+            skills.technical.find((s) => s.category === "Database")?.items || []
+          ) || [],
     },
     {
-      icon: Palette,
-      title: "Design",
-      description: "UI/UX, Responsive Design",
-      items: ["Figma", "Tailwind CSS", "Framer Motion", "ShadCN UI"],
+      icon: Cloud,
+      title: "DevOps & Cloud",
+      description: "Deployment, infrastructure, and tools",
+      items:
+        skills.technical.find((s) => s.category === "DevOps & Tools")?.items ||
+        [],
     },
     {
-      icon: Smartphone,
-      title: "Mobile",
-      description: "Cross-platform Development",
-      items: ["React Native", "Flutter", "Expo"],
+      icon: Users,
+      title: "Soft Skills",
+      description: "Collaboration and project management",
+      items: skills.soft,
     },
   ];
 
@@ -44,8 +60,7 @@ export default function About() {
 
         <FadeUp delay={0.2}>
           <p className="text-xl text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-            Passionate developer with X years of experience creating digital
-            solutions that make a difference.
+            {personalInfo.bio}
           </p>
         </FadeUp>
 
@@ -58,46 +73,46 @@ export default function About() {
 
             <FadeUp delay={0.1}>
               <p className="text-muted-foreground leading-relaxed">
-                I started my programming journey in 20XX and have been
-                passionate about creating amazing web experiences ever since. I
-                love turning complex problems into simple, beautiful designs.
+                {personalInfo.about.intro}
               </p>
             </FadeUp>
 
             <FadeUp delay={0.2}>
               <p className="text-muted-foreground leading-relaxed">
-                When I&apos;m not coding, you can find me exploring new
-                technologies, contributing to open-source projects, or enjoying
-                the great outdoors.
+                {personalInfo.about.passion}
               </p>
             </FadeUp>
 
-            {/* Additional personal details */}
+            {/* Personal details */}
             <FadeUp delay={0.3}>
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div>
                   <h4 className="font-semibold text-sm text-muted-foreground mb-2">
                     Location
                   </h4>
-                  <p className="text-foreground">Your City, Country</p>
+                  <p className="text-foreground">{personalInfo.location}</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-muted-foreground mb-2">
                     Experience
                   </h4>
-                  <p className="text-foreground">X+ Years</p>
+                  <p className="text-foreground">4+ Years</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-muted-foreground mb-2">
                     Education
                   </h4>
-                  <p className="text-foreground">Your Degree</p>
+                  <p className="text-foreground">
+                    {personalInfo.about.education}
+                  </p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-muted-foreground mb-2">
                     Availability
                   </h4>
-                  <p className="text-foreground">Open to Opportunities</p>
+                  <p className="text-foreground">
+                    {personalInfo.about.availability}
+                  </p>
                 </div>
               </div>
             </FadeUp>
@@ -105,7 +120,7 @@ export default function About() {
 
           {/* Skills Grid */}
           <StaggerChildren className="grid sm:grid-cols-2 gap-6">
-            {skills.map((skill, index) => (
+            {skillCategories.map((skill, index) => (
               <motion.div
                 key={skill.title}
                 variants={{
@@ -159,57 +174,6 @@ export default function About() {
             ))}
           </StaggerChildren>
         </div>
-
-        {/* Additional Skills Section */}
-        <FadeUp delay={0.4}>
-          <div className="mt-16 pt-8 border-t">
-            <h3 className="text-2xl font-semibold text-center mb-8">
-              Technologies I Work With
-            </h3>
-            <StaggerChildren className="flex flex-wrap justify-center gap-3">
-              {[
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Node.js",
-                "Python",
-                "MongoDB",
-                "PostgreSQL",
-                "Tailwind CSS",
-                "Framer Motion",
-                "Git",
-                "AWS",
-                "Docker",
-                "Figma",
-                "Jest",
-              ].map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.8 },
-                    show: {
-                      opacity: 1,
-                      scale: 1,
-                      transition: {
-                        type: "spring",
-                        stiffness: 100,
-                      },
-                    },
-                  }}
-                  className="px-4 py-2 bg-muted text-muted-foreground rounded-lg text-sm font-medium border"
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "hsl(var(--primary))",
-                    color: "hsl(var(--primary-foreground))",
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {tech}
-                </motion.span>
-              ))}
-            </StaggerChildren>
-          </div>
-        </FadeUp>
       </div>
     </section>
   );

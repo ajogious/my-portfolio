@@ -17,6 +17,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { personalInfo } from "@/constants/data";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -63,23 +64,23 @@ export default function Contact() {
     {
       icon: Mail,
       label: "Email",
-      value: "your.email@example.com",
-      href: "mailto:your.email@example.com",
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
       description: "Send me an email anytime",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
-      description: "Mon - Fri, 9am - 6pm",
+      value: personalInfo.phone,
+      href: `tel:${personalInfo.phone.replace(/\D/g, "")}`,
+      description: "Mon - Fri, 9am - 6pm PST",
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "Your City, Country",
+      value: personalInfo.location,
       href: "#",
-      description: "Available for remote work",
+      description: "Available for remote work worldwide",
     },
   ];
 
@@ -87,26 +88,20 @@ export default function Contact() {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com",
+      href: personalInfo.social.github,
       color: "hover:text-gray-700 dark:hover:text-gray-300",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com",
+      href: personalInfo.social.linkedin,
       color: "hover:text-blue-600",
     },
     {
       icon: Twitter,
       label: "Twitter",
-      href: "https://twitter.com",
+      href: personalInfo.social.twitter,
       color: "hover:text-sky-500",
-    },
-    {
-      icon: MessageCircle,
-      label: "Discord",
-      href: "https://discord.com",
-      color: "hover:text-indigo-500",
     },
   ];
 
@@ -374,7 +369,7 @@ export default function Contact() {
               </p>
               <div className="flex gap-4 flex-wrap justify-center">
                 <Button size="lg" className="gap-2" asChild>
-                  <a href="mailto:your.email@example.com">
+                  <a href={`mailto:${personalInfo.email}`}>
                     <Mail className="h-4 w-4" />
                     Start Conversation
                   </a>
