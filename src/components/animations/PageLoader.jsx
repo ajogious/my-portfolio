@@ -85,7 +85,7 @@ export default function PageLoader() {
                 backgroundSize: "200% 100%",
               }}
             >
-              Your Name
+              Abdulmumuni Ajoge Adavize
             </motion.h2>
             <motion.p
               className="text-muted-foreground"
