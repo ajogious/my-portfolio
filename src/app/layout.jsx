@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "Alex Johnson - Full Stack Developer",
-    template: "%s | Alex Johnson",
+    default: "Abdulmumuni Ajoge Adavize - Full Stack Developer & Instructor",
+    template: "%s | Abdulmumuni Ajoge Adavize",
   },
   description:
     "Personal portfolio showcasing projects and experience in full stack development, React, Next.js, and modern web technologies.",
@@ -22,11 +22,11 @@ export const metadata = {
     "web development",
     "full stack",
   ],
-  authors: [{ name: "Alex Johnson" }],
+  authors: [{ name: "Abdulmumuni Ajoge Adavize" }],
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
-    title: "Alex Johnson - Full Stack Developer",
+    title: "Abdulmumuni Ajoge Adavize - Full Stack Developer & Instructor",
     description:
       "Personal portfolio showcasing projects and experience in full stack development",
     type: "website",

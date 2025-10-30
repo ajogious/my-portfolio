@@ -98,12 +98,21 @@ export default function Experience() {
                         className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20"
                         whileHover={{ scale: 1.05 }}
                       >
-                        {experience.period.split(" - ")[1] === "Present"
-                          ? "Current"
-                          : `${
-                              new Date().getFullYear() -
-                              parseInt(experience.period.split(" - ")[1])
-                            }+ years`}
+                        {(() => {
+                          const period = experience.period.replace("–", "-");
+                          const [start, end] = period
+                            .split(" - ")
+                            .map((p) => p.trim());
+                          const startYear = parseInt(start.split(" ")[1]);
+                          const endYear =
+                            end === "Present"
+                              ? new Date().getFullYear()
+                              : parseInt(end.split(" ")[1]);
+                          const years = endYear - startYear;
+                          return end === "Present"
+                            ? "Current"
+                            : `${years}+ years`;
+                        })()}
                       </motion.div>
                     </div>
 

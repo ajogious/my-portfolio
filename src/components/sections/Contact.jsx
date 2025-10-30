@@ -72,7 +72,7 @@ export default function Contact() {
       label: "Phone",
       value: personalInfo.phone,
       href: `tel:${personalInfo.phone.replace(/\D/g, "")}`,
-      description: "Mon - Fri, 9am - 6pm PST",
+      description: "Mon - Sun, 9am - 6pm WAT",
     },
     {
       icon: MapPin,
