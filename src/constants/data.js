@@ -44,7 +44,7 @@ export const projects = [
     ],
     githubUrl: "https://github.com/ajogious/a3gtex-store.git",
     liveUrl: "https://a3gtex-store.vercel.app/",
-    featured: true,
+    featured: false,
     year: null,
   },
   {
@@ -62,7 +62,7 @@ export const projects = [
     ],
     githubUrl: "https://github.com/ajogious",
     liveUrl: "",
-    featured: true,
+    featured: false,
     year: null,
   },
   {
@@ -107,7 +107,7 @@ export const projects = [
     ],
     githubUrl: "https://github.com/ajogious/my-portfolio.git",
     liveUrl: "http://ajogious.netlify.app/",
-    featured: true,
+    featured: false,
     year: null,
   },
   {
@@ -127,7 +127,7 @@ export const projects = [
     ],
     githubUrl: "https://github.com/ajogious/lendsqr-dashboard.git",
     liveUrl: "https://lendsqr-dashboard.vercel.app/",
-    featured: true,
+    featured: false,
     year: 2025,
   },
 ];
