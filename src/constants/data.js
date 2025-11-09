@@ -110,6 +110,26 @@ export const projects = [
     featured: true,
     year: null,
   },
+  {
+    id: 6,
+    title: "Lendsqr Dashboard",
+    description:
+      "A responsive admin dashboard built from a Figma design for managing users and accounts. Includes search, filtering, pagination, and detailed user views. The project demonstrates strong TypeScript and SCSS architecture with local storage and mock API integration.",
+    image: "/images/lendsqr-dashboard.jpg",
+    technologies: [
+      "React",
+      "TypeScript",
+      "SCSS",
+      "Vite",
+      "Beeceptor Mock API",
+      "LocalStorage",
+      "Responsive Design",
+    ],
+    githubUrl: "https://github.com/ajogious/lendsqr-dashboard.git",
+    liveUrl: "https://lendsqr-dashboard.vercel.app/",
+    featured: true,
+    year: 2025,
+  },
 ];
 
 export const experiences = [
